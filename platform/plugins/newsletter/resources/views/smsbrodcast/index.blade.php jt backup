@@ -1,0 +1,133 @@
+@extends(BaseHelper::getAdminMasterLayoutTemplate())
+@section('content')
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script>
+    $(document).ready(function(){
+        new DataTable('#example');
+        $('.next1').click(function(){
+            $('.second_step').show();
+            $('.first_step').hide();
+
+        })
+
+        $('.search_contact').click(function(){
+            let url = "{{ route('smsbrodcast.searchcontacts') }}";
+            var val = [];
+            $(':checkbox:checked').each(function(i){
+                val[i] = $(this).val();
+            });
+            var data = {}
+            data['tags'] = val;
+            $.ajax({
+                    type: "post",
+                    url: url,
+                    data: data,
+                    success: function(response) {
+                        console.log('response',response);
+                        if(response){
+                            let html = '';
+                            for (let i = 0; i < response.length; i++) {
+                                
+                            if(response[i]){
+                                
+                                for(let j = 0; j < response[i].length; j++){
+                                     html = '<tr>';
+                                    html +='<td>'+response[i][j]['name']+'</td>';
+                                    html +='<td>'+response[i][j]['email']+'</td>';
+                                    html +='<td>'+response[i][j]['phone']+'</td>';
+                                    html +='<td>'+response[i][j]['contactTag']+'</td>';
+                                    html += '</tr>';
+                                    
+                                    
+                                }
+                                
+                                
+                            }
+                        }
+                        $('tbody').append(html);
+                        }
+                        
+                       // window.location.reload(true);
+                    }
+                });
+        })
+
+    })
+    
+</script>
+
+
+        <div class="row justify-content-center">
+            <div class="col-xxl-10 col-xl-8 col-lg-10 col-12">
+                <div class="widget meta-boxes">
+                    <div class="widget-title pl-2">
+                        <h4>SMS Brodcast</h4>
+                    </div>
+                    <div class="widget-body">
+                        <form name="smsbrodcastprocess" method="post" action="" >
+                    <div class="first_step">
+                        <label for="select sms">Select SMS Content</label>
+                        <select name = "smsTemplateID" class="form-control ui-select is-valid smsTemplateID">
+                            @if($smstemplate)
+                            @foreach($smstemplate as $template)
+                            <option value="{{$template->id}}" >{{$template->name}}</option>
+                            @endforeach
+                            
+                            @endif
+                        </select>
+                        <textarea name="sms_content" rows="10" class="form-control sms_content"></textarea>
+
+                        <button type="button" class="btn btn-info next1">Next</button>
+                        </div>
+                        <div class="second_step" style="display:none;">
+                        <input type="radio" id="allcontacts" name="allcontacts" class="form-control" value="1">
+                        <label>Send to Entire List</label>
+                        <input type="radio" id="target_audience" name="target_audience" class="form-control" value="2">
+                        <label>Target Audience</label>
+
+                        <label>Tags</label>
+                        @if($contacttags)
+                            @foreach($contacttags as $tag)
+                            <input type="checkbox" name="smstag[]" class="form-control" value="{{$tag->name}}" />{{$tag->name}}
+                            @endforeach
+                        @endif
+                        
+                        <button type="button" class="btn btn-info next1">Previous</button>
+                        <button type="button" class="btn btn-info search_contact">Search</button>
+                        <button type="button" class="btn btn-info next1">Next</button>
+                        <table id="example" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Tags</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>System Architect</td>
+                                <td>Edinburgh</td>
+                                <td>61</td>
+                                
+                            </tr>
+                            
+                            
+                            </tbody>
+                           
+                        </table>
+                        
+                        </div>
+
+                        </form>
+                        
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+@stop

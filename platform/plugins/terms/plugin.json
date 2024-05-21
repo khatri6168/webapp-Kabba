@@ -1,0 +1,10 @@
+{
+    "id": "botble/terms",
+    "name": "TERMS",
+    "namespace": "Botble\\Terms\\",
+    "provider": "Botble\\Terms\\Providers\\TermsServiceProvider",
+    "author": "Jigar Khatri",
+    "url": "https://botble.com",
+    "version": "1.0.0",
+    "description": "Terms"
+}

@@ -1,0 +1,11 @@
+{
+    "id": "botble/authorizenet",
+    "name": "Authorizenet Payment Gateway",
+    "namespace": "Botble\\Authorizenet\\",
+    "provider": "Botble\\Authorizenet\\Providers\\AuthorizenetServiceProvider",
+    "author": "Jigar Khatri",
+    "url": "https://botble.com",
+    "version": "1.0.0",
+    "description": "Authorizenet payment gateway integration",
+    "require": ["botble/payment"]
+}

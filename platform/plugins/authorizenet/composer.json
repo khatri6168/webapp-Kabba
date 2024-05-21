@@ -1,0 +1,8 @@
+{
+    "name": "botble/authorizenet",
+    "description": "Authorizenet Payment Gateway",
+    "type": "package",
+    "require": {
+        "authorizenet/authorizenet": "^2.0"
+    }
+}

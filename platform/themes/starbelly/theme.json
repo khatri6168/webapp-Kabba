@@ -1,0 +1,8 @@
+{
+    "name": "Starbelly",
+    "namespace": "Theme\\Starbelly\\",
+    "description": "Starbelly - Restaurant & Cafe",
+    "author": "Archi Elite",
+    "version": "1.0.0",
+    "required_plugins": []
+}
